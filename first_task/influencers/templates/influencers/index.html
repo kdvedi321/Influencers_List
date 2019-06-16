@@ -1,0 +1,44 @@
+<link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<h1 align="center">DATA OF ALL INFLUENCERS</h1>
+<table class = "table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Followers</th>
+        <th>Likes</th>
+        <th>Comments</th>
+        <th>Profile Photo</th>
+    </tr>
+    {% for data in all_data %}
+    <tr>
+        <th>{{data.username}}</th>
+        <th>{{data.followerCount}}</th>
+        <th>{{data.avgLikesRatio}}</th>
+        <th>{{data.avgCommentsRatio}}</th>
+        <th><img src="{{data.picture}}"></th>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% if all_data.has_other_pages %}
+  <ul class="pagination">
+    {% if all_data.has_previous %}
+      <li><a href="?page={{ all_data.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in all_data.paginator.page_range %}
+      {% if all_data.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if all_data.has_next %}
+      <li><a href="?page={{ all_data.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
